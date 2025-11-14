@@ -4,8 +4,9 @@ import "./globals.css";
 import { ReadmeProvider } from "@/lib/readme-context";
 import { ThemeProvider } from "@/lib/theme-provider";
 import Header from "@/components/Header";
-import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,6 +45,9 @@ export default function RootLayout({
             <Header />
             <main className="h-auto w-full">
               {children}
+
+              {/* vercel analytics */}
+              <Analytics />
 
               {/* shadcn toast component */}
               <Toaster
