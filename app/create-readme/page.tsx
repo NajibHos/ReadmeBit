@@ -5,18 +5,12 @@ import { useReadmeWidgets, useReadmeMarkdown } from '@/lib/readme-context';
 import WidgetSidebar from '@/components/widgets/Widgets';
 import ReadmeEditor from '@/components/widgets/ReadmeEditor';
 import { toast } from 'sonner';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function CreateReadme() {
-  const { widgets, clearAll } = useReadmeWidgets();
+  
+  const { widgets } = useReadmeWidgets();
   const { markdown } = useReadmeMarkdown();
 
   const handleDownload = () => {
@@ -97,50 +91,23 @@ export default function CreateReadme() {
               Copy code
             </Button>
           </div>
+
+          {/* dialog component */}
           {
-            (widgets.length > 0 || markdown) && (
-              <>
-                <div className='h-auto w-auto'>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="secondary_red"
-                      >
-                        Clear All
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>
-                          Are you sure you want to clear all widgets?
-                        </DialogTitle>
-                        <DialogDescription>
-                          All data will be lost. This action can not be undone.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className='h-auto w-auto'>
-                        <Button
-                          onClick={() => clearAll()}
-                          variant="alert"
-                        >
-                          Yes, Clear all widgets
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </>
-            )
+            (widgets.length > 0 || markdown) && <ConfirmDialog />
           }
         </div>
 
         {/* Two Column Layout */}
         <div className="h-auto w-full flex flex-col lg:flex-row justify-center
-          lg:justify-between items-center gap-8 lg:gap-0">
+          lg:justify-between items-center gap-8 lg:gap-0"
+        >
+
           {/* widgets */}
           <div className="h-auto w-full! lg:w-[30%]!">
             <WidgetSidebar />
           </div>
+
           {/* editor */}
           <div className="h-auto w-full! lg:w-[66%]!">
             <ReadmeEditor />
