@@ -39,7 +39,7 @@ export default function StatsPanel({ content }: { content: string }) {
   }, [content]);
 
   return (
-    <div className="flex gap-4 text-sm lg:text-base font-inter font-medium
+    <div className="flex gap-4 text-sm lg:text-base font-workSans font-medium
       text-gray-700 dark:text-gray-300"
     >
       <span>{words} words</span>
