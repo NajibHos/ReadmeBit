@@ -21,7 +21,9 @@ import {
   ArrowDown,
   Table,
   PenSquare,
-  Scale
+  Scale,
+  ListTodo,
+  FileStack
 } from 'lucide-react';
 
 export interface ReadmeWidget {
@@ -92,12 +94,18 @@ export const WIDGET_TYPES: WidgetType[] = [
     icon: ArrowDown,
     category: 'content',
   },
-  // {
-  //   id: 'table',
-  //   name: 'Table',
-  //   icon: Table,
-  //   category: 'content',
-  // },
+  {
+    id: 'table',
+    name: 'Table',
+    icon: Table,
+    category: 'content',
+  },
+  {
+    id: 'tasklist',
+    name: 'Tasklist',
+    icon: ListTodo,
+    category: 'content',
+  },
   {
     id: 'changelog',
     name: 'Changelog',
@@ -153,8 +161,8 @@ export const WIDGET_TYPES: WidgetType[] = [
 
   // Badges
   {
-    id: 'badges',
-    name: 'Badges',
+    id: 'badge',
+    name: 'Badge',
     icon: Shield,
     category: 'badges',
   },
@@ -182,5 +190,5 @@ export const WIDGET_TYPES: WidgetType[] = [
     id: 'hr',
     name: 'Horizontal Rule',
     icon: Minus,
-  }
+  },
 ];
