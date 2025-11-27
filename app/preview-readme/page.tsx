@@ -1,10 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useReadmeMarkdown } from '@/lib/readme-context';
+import Link from 'next/link';
 import Markdown from 'react-markdown';
-import { toast } from 'sonner';
+import remarkGfm from 'remark-gfm'
 import StatsPanel from '@/components/widgets/StatsPanel';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 
 export default function PreviewReadme() {
@@ -50,7 +51,7 @@ export default function PreviewReadme() {
         {/* page title */}
         <div className='text-container'>
           <h2 className='text-heading'>
-            README Preview
+            Preview README
           </h2>
         </div>
 
@@ -95,8 +96,8 @@ export default function PreviewReadme() {
           <div className="h-auto w-full bg-transparent border rounded"
           >
             {/* GitHub-like header */}
-            <div className="h-auto w-full px-6 py-3 bg-[#faf7f5] dark:bg-gray-900 border-b
-              rounded-t"
+            <div className="h-auto w-full px-6 py-3 bg-[#faf7f5] dark:bg-gray-900
+              border-b rounded-t"
             >
               <div className='h-auto w-auto'>
                 <h2 className="text-subheading">
@@ -109,7 +110,7 @@ export default function PreviewReadme() {
             <div className='h-auto w-full px-6 py-5 markdown-content
               bg-transparent'
             >
-              <Markdown>
+              <Markdown remarkPlugins={[remarkGfm]}>
                 {`${markdown}`}
               </Markdown>
             </div>
