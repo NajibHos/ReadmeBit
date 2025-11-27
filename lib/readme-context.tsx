@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, useEffect, ReactNode }
+import { createContext, useContext, useReducer, useEffect, ReactNode, useRef }
 from 'react';
 import { ReadmeWidget } from './types';
 
@@ -8,8 +8,10 @@ import { ReadmeWidget } from './types';
 interface ReadmeState {
   widgets: ReadmeWidget[];
   currentMarkdown: string;
-  // Track if user has manually edited the markdown
   isManualEdit: boolean;
+  saveStatus: 'idle' | 'saving' | 'saved';
+  lastSavedAt: number | null;
+  cursorPosition: number; // Track cursor position in editor
 }
 
 // Context type
@@ -18,7 +20,10 @@ interface ReadmeContextType {
   addWidget: (widget: ReadmeWidget) => void;
   clearAll: () => void;
   updateMarkdown: (markdown: string) => void;
+  setCursorPosition: (position: number) => void;
   isManualEdit: boolean;
+  saveStatus: ReadmeState['saveStatus'];
+  lastSavedAt: number | null;
 }
 
 // Action types
@@ -26,6 +31,9 @@ type ReadmeAction =
   | { type: 'ADD_WIDGET'; payload: ReadmeWidget }
   | { type: 'CLEAR_ALL' }
   | { type: 'UPDATE_MARKDOWN'; payload: string }
+  | { type: 'SET_SAVE_STATUS'; payload: { status: ReadmeState['saveStatus'];
+    time?: number | null } }
+  | { type: 'SET_CURSOR_POSITION'; payload: number };
 
 // Helper function to generate markdown from widgets
 const generateReadmeMarkdown = (widgets: ReadmeWidget[]): string => {
@@ -37,158 +45,80 @@ const initialState: ReadmeState = {
   widgets: [],
   currentMarkdown: '',
   isManualEdit: false,
+  saveStatus: 'idle',
+  lastSavedAt: null,
+  cursorPosition: 0,
 };
-
-// Reducer with improved manual edit handling
-// const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState => {
-//   switch (action.type) {
-//     // add_widget action(previous version)
-//     // case 'ADD_WIDGET': {
-//     //   const newWidgets = [...state.widgets, action.payload];
-//     //   return {
-//     //     widgets: newWidgets,
-//     //     // Append widget content to existing markdown when in manual edit mode
-//     //     currentMarkdown: state.isManualEdit
-//     //       ? `${state.currentMarkdown}\n\n${action.payload.content}`
-//     //       : generateReadmeMarkdown(newWidgets),
-//     //     isManualEdit: state.isManualEdit,
-//     //   };
-//     // }
-
-//     case 'ADD_WIDGET': {
-//       const newWidgets = [...state.widgets, action.payload];
-//       const newContent = state.isManualEdit
-//       ? `${state.currentMarkdown.trim()}\n\n${action.payload.content}`
-//       : generateReadmeMarkdown(newWidgets);
-
-//       return {
-//         widgets: newWidgets,
-//         currentMarkdown: newContent,
-//         isManualEdit: state.isManualEdit,
-//       };
-//     }
-
-//     case 'UPDATE_WIDGET': {
-//       const newWidgets = state.widgets.map((widget) =>
-//         widget.id === action.payload.id ? { ...widget, ...action.payload.updates } : widget
-//       );
-//       const updatedWidget = newWidgets.find(w => w.id === action.payload.id);
-
-//       if (state.isManualEdit && updatedWidget) {
-//         // Replace the old widget content with new content in markdown
-//         const oldWidget = state.widgets.find(w => w.id === action.payload.id);
-//         const updatedMarkdown = state.currentMarkdown.replace(
-//           oldWidget?.content || '',
-//           updatedWidget.content
-//         );
-//         return {
-//           widgets: newWidgets,
-//           currentMarkdown: updatedMarkdown,
-//           isManualEdit: true,
-//         };
-//       }
-//       return {
-//         widgets: newWidgets,
-//         currentMarkdown: generateReadmeMarkdown(newWidgets),
-//         isManualEdit: state.isManualEdit,
-//       };
-//     }
-
-//     case 'REMOVE_WIDGET': {
-//       const removedWidget = state.widgets.find(w => w.id === action.payload);
-//       const newWidgets = state.widgets.filter((widget) => widget.id !== action.payload);
-
-//       if (state.isManualEdit && removedWidget) {
-//         // Remove the widget content from markdown
-//         const updatedMarkdown = state.currentMarkdown.replace(
-//           removedWidget.content,
-//           ''
-//         ).replace(/\n{3,}/g, '\n\n').trim(); // Clean up extra newlines
-
-//         return {
-//           widgets: newWidgets,
-//           currentMarkdown: updatedMarkdown,
-//           isManualEdit: true,
-//         };
-//       }
-
-//       return {
-//         widgets: newWidgets,
-//         currentMarkdown: generateReadmeMarkdown(newWidgets),
-//         isManualEdit: state.isManualEdit,
-//       };
-//     }
-
-//     case 'MOVE_WIDGET': {
-//       const newWidgets = [...state.widgets];
-//       const [movedWidget] = newWidgets.splice(action.payload.fromIndex, 1);
-//       newWidgets.splice(action.payload.toIndex, 0, movedWidget);
-
-//       return {
-//         widgets: newWidgets,
-//         currentMarkdown: state.isManualEdit
-//           ? state.currentMarkdown
-//           : generateReadmeMarkdown(newWidgets),
-//         isManualEdit: state.isManualEdit,
-//       };
-//     }
-
-//     case 'CLEAR_ALL':
-//       return {
-//         widgets: [],
-//         currentMarkdown: '',
-//         isManualEdit: false,
-//       };
-
-//     case 'UPDATE_MARKDOWN':
-//       return {
-//         ...state,
-//         currentMarkdown: action.payload,
-//         isManualEdit: true,
-//       };
-
-//     case 'SYNC_WIDGETS':
-//       // Re-generate markdown from widgets and clear manual edit flag
-//       return {
-//         ...state,
-//         currentMarkdown: generateReadmeMarkdown(state.widgets),
-//         isManualEdit: false,
-//       };
-
-//     case 'RESET_MANUAL_EDIT':
-//       return {
-//         ...state,
-//         isManualEdit: false,
-//       };
-
-//     case 'LOAD_STATE':
-//       return action.payload;
-
-//     default:
-//       return state;
-//   }
-// };
 
 const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState => {
   switch (action.type) {
     case 'ADD_WIDGET': {
       const newWidgets = [...state.widgets, action.payload];
+      let newMarkdown: string;
+
+      if (state.isManualEdit) {
+        // Insert widget content at cursor position
+        const before = state.currentMarkdown.substring(0, state.cursorPosition);
+        const after = state.currentMarkdown.substring(state.cursorPosition);
+
+        // Check if before/after already have line breaks
+        const beforeEndsWithBreak = before.endsWith('\n\n') || before.endsWith('\n');
+        const afterStartsWithBreak = after.startsWith('\n\n') || after.startsWith('\n');
+
+        let beforeSeparator = '';
+        let afterSeparator = '';
+
+        // Add separator before only if before has content and doesn't already end with breaks
+        if (before.trim() && !beforeEndsWithBreak) {
+          beforeSeparator = '\n\n';
+        }
+
+        // Add separator after only if after has content and doesn't already start with breaks
+        if (after.trim() && !afterStartsWithBreak) {
+          afterSeparator = '\n\n';
+        }
+
+        newMarkdown = `${before}${beforeSeparator}${action.payload.content}${afterSeparator}${after}`.trim();
+      } else {
+        newMarkdown = generateReadmeMarkdown(newWidgets);
+      }
+
       return {
         widgets: newWidgets,
-        currentMarkdown: state.isManualEdit
-          ? `${state.currentMarkdown}\n\n${action.payload.content}`
-          : generateReadmeMarkdown(newWidgets),
+        currentMarkdown: newMarkdown,
         isManualEdit: state.isManualEdit,
+        saveStatus: state.saveStatus,
+        lastSavedAt: state.lastSavedAt,
+        cursorPosition: state.cursorPosition,
       };
     }
+
     case 'CLEAR_ALL':
       return initialState;
+
     case 'UPDATE_MARKDOWN':
       return {
         ...state,
         currentMarkdown: action.payload,
         isManualEdit: true,
       };
+
+    case 'SET_SAVE_STATUS':
+      return {
+        ...state,
+        saveStatus: action.payload.status,
+        lastSavedAt: action.payload.status === 'saved' ?
+        (action.payload.time ?? Date.now())
+        :
+        state.lastSavedAt,
+      };
+
+    case 'SET_CURSOR_POSITION':
+      return {
+        ...state,
+        cursorPosition: action.payload,
+      };
+
     default:
       return state;
   }
@@ -216,6 +146,7 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
     return initialState;
   });
 
+  // Save state to localStorage as before
   useEffect(() => {
     try {
       localStorage.setItem('readme-storage', JSON.stringify(state));
@@ -224,9 +155,31 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
     }
   }, [state]);
 
+  // debounce timer ref for "saving" -> "saved"
+  const saveTimer = useRef<number | null>(null);
+  const SAVE_DEBOUNCE_MS = 800;
+
+  // centralized trigger to mark saving and debounce to saved
+  const triggerSave = () => {
+    // mark saving immediately
+    dispatch({ type: 'SET_SAVE_STATUS', payload: { status: 'saving' } });
+
+    // debounce setting to saved
+    if (saveTimer.current) {
+      clearTimeout(saveTimer.current);
+    }
+    saveTimer.current = window.setTimeout(() => {
+      dispatch({ type: 'SET_SAVE_STATUS', payload: { status: 'saved',
+        time: Date.now() }
+      });
+      saveTimer.current = null;
+    }, SAVE_DEBOUNCE_MS);
+  };
+
   // Action creators
   const addWidget = (widget: ReadmeWidget) => {
     dispatch({ type: 'ADD_WIDGET', payload: widget });
+    triggerSave();
   };
 
   const clearAll = () => {
@@ -235,14 +188,31 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
 
   const updateMarkdown = (markdown: string) => {
     dispatch({ type: 'UPDATE_MARKDOWN', payload: markdown });
+    triggerSave();
   };
+
+  const setCursorPosition = (position: number) => {
+    dispatch({ type: 'SET_CURSOR_POSITION', payload: position });
+  };
+
+  // optional: clear timer on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimer.current) {
+        clearTimeout(saveTimer.current);
+      }
+    };
+  }, []);
 
   const contextValue: ReadmeContextType = {
     state,
     addWidget,
     clearAll,
     updateMarkdown,
+    setCursorPosition,
     isManualEdit: state.isManualEdit,
+    saveStatus: state.saveStatus,
+    lastSavedAt: state.lastSavedAt,
   };
 
   return (
@@ -278,10 +248,19 @@ export const useReadmeWidgets = () => {
 
 // Hook for markdown operations
 export const useReadmeMarkdown = () => {
-  const { state, updateMarkdown } = useReadmeContext();
+  const { state, updateMarkdown, setCursorPosition } = useReadmeContext();
+
+  const lastSavedAtFormatted = state.lastSavedAt
+    ? new Date(state.lastSavedAt).toLocaleTimeString(undefined, { hour: 'numeric',
+      minute: '2-digit', hour12: true })
+    : null;
 
   return {
     markdown: state.currentMarkdown,
     updateMarkdown,
+    setCursorPosition,
+    saveStatus: state.saveStatus,
+    lastSavedAt: state.lastSavedAt,
+    lastSavedAtFormatted,
   };
 };
