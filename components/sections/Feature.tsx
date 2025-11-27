@@ -1,13 +1,7 @@
-'use client';
-
-import { ArrowDownToLine, Code, LayoutGrid, SquareMousePointer, UserRoundCheck, Zap } from "lucide-react";
+import { ArrowDownToLine, DatabaseZap, SquareMousePointer, Underline, UserRoundCheck, Zap } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { useTheme } from "next-themes";
 
 export default function Features() {
-
-  const { theme } = useTheme();
-
   return (
     <div className="section-container">
       <div className="section-layout">
@@ -28,158 +22,15 @@ export default function Features() {
         <div className="h-auto w-full grid grid-cols-1 md:grid-cols-2
           lg:grid-cols-3 gap-8"
         >
-          {/* <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-          >
-            <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2"
-            >
-              <Shapes
-                size={28}
-                className="text-darkest dark:text-lightest"
-              />
-            </div>
-            <div className="h-auto w-full text-left">
-              <h2 className="text-lg font-inter font-medium
-                !text-section-title-light dark:!text-section-title-dark"
-              >
-                Widget Based Editing
-              </h2>
-            </div>
-            <div className="h-auto w-full text-left">
-              <p className="text-sm font-inter font-medium
-                text-body-text-light dark:text-body-text-dark"
-              >
-                Choose widgets or write markdown manually with text formatting.
-              </p>
-            </div>
-          </div>
-          <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-          >
-            <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2">
-              <Zap size={28} className="!text-stone-900 dark:!text-white" />
-            </div>
-            <div className="h-auto w-full text-left">
-              <h2 className="text-lg font-inter font-medium
-                !text-stone-800 dark:!text-stone-200"
-              >
-                Instant Preview
-              </h2>
-            </div>
-            <div className="h-auto w-full text-left">
-              <p className="text-sm font-inter font-medium
-                !text-stone-600 dark:!text-stone-400"
-              >
-                See GitHub style README update live as you edit your content.
-              </p>
-            </div>
-          </div>
-          <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-          >
-            <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2">
-              <ArrowDownToLine size={28} className="!text-stone-900
-                dark:!text-white"
-              />
-            </div>
-            <div className="h-auto w-full text-left">
-              <h2 className="text-lg font-inter font-medium
-                !text-stone-800 dark:!text-stone-200"
-              >
-                Export Easily
-              </h2>
-            </div>
-            <div className="h-auto w-full text-left">
-              <p className="text-sm font-inter font-medium
-                !text-stone-600 dark:!text-stone-400"
-              >
-                Copy markdown text or download README.md file with one click.
-              </p>
-            </div>
-          </div>
-          <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-        >
-          <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2">
-            <UserRoundCheck size={28} className="!text-stone-900
-              dark:!text-white"
-            />
-          </div>
-          <div className="h-auto w-full text-left">
-            <h2 className="text-lg font-inter font-medium
-              !text-stone-800 dark:!text-stone-200"
-            >
-              No Login Required
-            </h2>
-          </div>
-          <div className="h-auto w-full text-left">
-            <p className="text-sm font-inter font-medium
-              !text-stone-600 dark:!text-stone-400"
-            >
-              Start creating READMEs instantly without any signup process.
-            </p>
-          </div>
-          </div>
-          <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-        >
-          <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2">
-            <LayoutGrid size={28} className="!text-stone-900 dark:!text-white" />
-          </div>
-          <div className="h-auto w-full text-left">
-            <h2 className="text-lg font-inter font-medium
-              !text-stone-800 dark:!text-stone-200"
-            >
-              Clean Interface
-            </h2>
-          </div>
-          <div className="h-auto w-full text-left">
-            <p className="text-sm font-inter font-medium
-              !text-stone-600 dark:!text-stone-400"
-            >
-              Focus on writing with a minimal and distraction free interface.
-            </p>
-          </div>
-          </div>
-          <div className="h-auto w-full p-6 flex flex-col justify-center
-            items-start gap-3 border border-[#E0E0E0] dark:border-stone-700
-            rounded-lg"
-          >
-          <div className="p-[14px] h-auto w-auto text-left rounded-[8px]
-              bg-[#F9FBFF] dark:bg-stone-900 mb-2">
-            <Code size={28} className="!text-stone-900 dark:!text-white" />
-          </div>
-          <div className="h-auto w-full text-left">
-            <h2 className="text-lg font-inter font-medium
-              !text-stone-800 dark:!text-stone-200"
-            >
-              Free & Open Source
-            </h2>
-          </div>
-          <div className="h-auto w-full text-left">
-            <p className="text-sm font-inter font-medium
-              !text-stone-600 dark:!text-stone-400"
-            >
-              Completely free to use with source code available on GitHub.
-            </p>
-          </div>
-          </div> */}
-          
           <Card className="h-auto w-full">
             <CardHeader>
-              <CardTitle>
-                <SquareMousePointer />
-              </CardTitle>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-green-700 bg-green-50 dark:bg-green-950/30 ring-green-700/30"
+                >
+                  <SquareMousePointer className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
                 Widget Based Editing
               </CardTitle>
@@ -190,9 +41,13 @@ export default function Features() {
           </Card>
           <Card className="h-auto w-full">
             <CardHeader>
-              <CardTitle>
-                <Zap />
-              </CardTitle>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-red-700 bg-red-50 dark:bg-red-950/30 ring-red-700/30"
+                >
+                  <Zap className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
                 Instant Preview
               </CardTitle>
@@ -203,9 +58,13 @@ export default function Features() {
           </Card>
           <Card className="h-auto w-full">
             <CardHeader>
-              <CardTitle>
-                <ArrowDownToLine />
-              </CardTitle>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-blue-700 bg-blue-50 dark:bg-blue-950/30 ring-blue-700/30"
+                >
+                  <ArrowDownToLine className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
                 Export Easily
               </CardTitle>
@@ -216,9 +75,13 @@ export default function Features() {
           </Card>
           <Card className="h-auto w-full">
             <CardHeader>
-              <CardTitle>
-                <UserRoundCheck />
-              </CardTitle>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-teal-700 bg-teal-50 dark:bg-teal-950/30 ring-teal-700/30"
+                >
+                  <UserRoundCheck className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
                 No Login Required
               </CardTitle>
@@ -229,27 +92,38 @@ export default function Features() {
           </Card>
           <Card className="h-auto w-full">
             <CardHeader>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-pink-700 bg-pink-50 dark:bg-pink-950/30 ring-pink-700/30"
+                >
+                  <Underline className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
-                <LayoutGrid />
-              </CardTitle>
-              <CardTitle>
-                Clean Interface
+                Markdown Toolbar
               </CardTitle>
               <CardDescription>
-                Focus on writing with a minimal and distraction free interface.
+                Easily format your text with a built-in toolbar for bold, italic,
+                linethrough, code and links.
               </CardDescription>
             </CardHeader>
           </Card>
           <Card className="h-auto w-full">
             <CardHeader>
+              <div className="mb-2">
+                <span className="inline-flex rounded-lg p-3 ring-2 ring-inset
+                  text-orange-700 bg-orange-50 dark:bg-orange-950/30
+                  ring-orange-700/30"
+                >
+                  <DatabaseZap className="h-6 w-6" />
+                </span>
+              </div>
               <CardTitle>
-                <Code />
-              </CardTitle>
-              <CardTitle>
-                Free & Open Source
+                Local Storage Support
               </CardTitle>
               <CardDescription>
-                Completely free to use with source code available on GitHub.
+                Your progrss stays saved in your browser's local storage
+                automatically.
               </CardDescription>
             </CardHeader>
           </Card>
