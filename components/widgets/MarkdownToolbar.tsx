@@ -1,5 +1,5 @@
 import { useReadmeMarkdown } from '@/lib/readme-context';
-import { Bold, Italic, Link, Code, List, Image } from 'lucide-react';
+import { Bold, Italic, Link, Code, List, Image, Strikethrough } from 'lucide-react';
 
 export default function MarkdownToolbar() {
   const { markdown, updateMarkdown } = useReadmeMarkdown();
@@ -36,6 +36,13 @@ export default function MarkdownToolbar() {
         transition-colors'
       >
         <Italic size={18} />
+      </button>
+      <button
+        onClick={() => insertFormat('~')}
+        className='text-gray-900 dark:text-white hover:*:text-blue-700
+        transition-colors'
+      >
+        <Strikethrough size={18} />
       </button>
       <button
         onClick={() => insertFormat('`')}
