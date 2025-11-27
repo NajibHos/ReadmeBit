@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Work_Sans } from "next/font/google";
 import "./globals.css";
 import { ReadmeProvider } from "@/lib/readme-context";
 import { ThemeProvider } from "@/lib/theme-provider";
@@ -8,13 +8,8 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from '@vercel/analytics/next';
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"]
-})
-
-const geist = Geist({
-  variable: "--font-geist",
+const workSans = Work_Sans({
+  variable: "--font-workSans",
   subsets: ["latin"]
 })
 
@@ -33,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${geist.variable} antialiased`}
+        className={` ${workSans.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
