@@ -15,7 +15,7 @@ export default function Feedback() {
     const feedback = formData.get('feedback') as string;
 
     const res = await CreateFeedBack(name, email, feedback);
-    
+
     if (res?.res && res?.res === 'Failed') {
       console.error(res.error);
       toast.error('Error creating feedback, try again');
@@ -46,15 +46,31 @@ export default function Feedback() {
           <form action={formAction} className="h-auto w-full flex flex-col gap-6">
             <div className="h-auto w-full grid items-center gap-3">
               <Label htmlFor="name">Name *</Label>
-              <Input name="name" id="name" type="text" required placeholder="Your name" />
+              <Input
+                name="name"
+                id="name"
+                type="text"
+                required
+                placeholder="Your name"
+              />
             </div>
             <div className="h-auto w-full grid items-center gap-3">
               <Label htmlFor="email">Email *</Label>
-              <Input name="email" id="email" type="email" required placeholder="Your email" />
+              <Input
+                name="email"
+                id="email"
+                type="email"
+                required
+                placeholder="Your email"
+              />
             </div>
             <div className="h-auto w-full grid items-center gap-3">
               <Label htmlFor="feedback">Feedback *</Label>
-              <Textarea id="feedback" name="feedback" placeholder="Share your feedback with us" />
+              <Textarea
+                id="feedback"
+                name="feedback"
+                placeholder="Share your feedback with us"
+              />
             </div>
             <SubmitButton />
           </form>
