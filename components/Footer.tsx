@@ -1,11 +1,15 @@
 export default function Footer() {
+
+  const d = new Date();
+  const currentYear = d.getFullYear();
+
   return (
     <div className="h-auto w-full py-12 flex flex-col justify-center
       items-center gap-4"
     >
       <div className="text-container">
         <h2 className="text-subheading">
-          © 2025 <span className="font-geist font-semibold">ReadmeBit</span>
+          © {currentYear} ReadmeBit
         </h2>
       </div>
       <div className="text-container">
