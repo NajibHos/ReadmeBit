@@ -21,39 +21,6 @@ export default function TemplateSelector() {
   }
 
   return (
-    // <div className="h-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
-    //   {
-    //     templates.map((template) => (
-    //       <div className="h-auto w-full p-6 flex flex-col gap-3 border
-    //         border-[#E0E0E0] dark:border-stone-700 rounded-lg shadow-sm"
-    //         key={template.id}
-    //       >
-    //         <div className="h-auto w-full text-left">
-    //           <h2 className="text-lg font-inter font-medium text-slate-700!
-    //             dark:text-slate-300!"
-    //           >
-    //             {template.name}
-    //           </h2>
-    //         </div>
-    //         <div className="h-auto w-full text-left">
-    //           <h2 className="text-body"
-    //           >
-    //             {template.description}
-    //           </h2>
-    //         </div>
-    //         <div className="h-auto w-auto mt-2">
-    //           <Button
-    //             onClick={() => handleSelectTemplate(template.content)}
-    //             variant="teal"
-    //             size="sm"
-    //           >
-    //             Use Template
-    //           </Button>
-    //         </div>
-    //       </div>
-    //     ))
-    //   }
-    // </div>
     <div className="h-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
       {
         templates.map((template) => (
@@ -68,7 +35,7 @@ export default function TemplateSelector() {
               <CardDescription>
                 {template.description}
               </CardDescription>
-              <CardContent className="h-auto w-full flex gap-6">
+              <CardContent className="h-auto w-full mt-1 flex gap-6">
                 <div>
                   <Button
                     onClick={() => handlePreviewTemplate(template.content)}
