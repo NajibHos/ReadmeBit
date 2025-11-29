@@ -1,5 +1,5 @@
 import { useReadmeMarkdown } from '@/lib/readme-context';
-import { Check, CircleCheck, Clock, Ghost, Loader2 } from 'lucide-react';
+import { Check, Ghost, Loader2 } from 'lucide-react';
 
 export default function DraftIndicator() {
   const { saveStatus, lastSavedAtFormatted } = useReadmeMarkdown();
@@ -21,9 +21,7 @@ export default function DraftIndicator() {
       </span>
     )
 
-  }
-
-  if (saveStatus === 'saving') {
+  } else if (saveStatus === 'saving') {
     return (
       <span className='flex justify-start items-center gap-2'>
         <span>
@@ -40,9 +38,7 @@ export default function DraftIndicator() {
       </span>
     )
 
-  }
-
-  if (saveStatus === 'saved') {
+  } else if (saveStatus === 'saved') {
     return (
       <span className='flex justify-start items-center gap-2'>
         <span>
@@ -62,7 +58,21 @@ export default function DraftIndicator() {
       </span>
     )
 
+  } else {
+    return (
+      <span className='flex justify-start items-center gap-2'>
+        <span>
+          <Ghost
+            size={16}
+            className="text-gray-700 dark:text-gray-300"
+          />
+        </span>
+        <span>
+          <h2 className='text-subheading text-sm!'>
+            start editing to save draft
+          </h2>
+        </span>
+      </span>
+    )
   }
-
-  return null;
 };
