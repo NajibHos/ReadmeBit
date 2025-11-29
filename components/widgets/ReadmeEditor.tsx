@@ -56,8 +56,8 @@ export default function ReadmeEditor() {
           onClick={handleClick}
           onKeyUp={handleKeyUp}
           className='h-full w-full p-5 text-base! font-workSans font-medium
-          bg-[#faf7f5] dark:bg-gray-900 text-gray-900 dark:text-white
-          border-transparent! rounded-none! focus:outline-0!
+          bg-editor-bg-light dark:bg-editor-bg-dark text-gray-900
+          dark:text-white border-transparent! rounded-none! focus:outline-0!
           focus:ring-2! overflow-auto'
           placeholder='Start writing your README.md content here...'
         />
