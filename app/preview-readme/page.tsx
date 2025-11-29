@@ -96,8 +96,8 @@ export default function PreviewReadme() {
           <div className="h-auto w-full bg-transparent border rounded"
           >
             {/* GitHub-like header */}
-            <div className="h-auto w-full px-6 py-3 bg-[#faf7f5] dark:bg-gray-900
-              border-b rounded-t"
+            <div className="h-auto w-full px-6 py-3 bg-readme-preview-bg-light
+              dark:bg-readme-preview-bg-dark border-b rounded-t"
             >
               <div className='h-auto w-auto'>
                 <h2 className="text-subheading">
