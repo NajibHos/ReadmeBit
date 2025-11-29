@@ -129,8 +129,7 @@ export default function WidgetCreator({ type }: WidgetCreatorProps) {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 1.0 }}
       className="py-5 px-3 group flex flex-col items-center gap-3
-      rounded cursor-pointer bg-[#faf7f5] dark:bg-gray-900"
-      // bg-[#0d1117] border-transparent
+      rounded cursor-pointer bg-widget-bg-light dark:bg-widget-bg-dark"
     >
       <span className="h-auto w-auto">
         <Icon
