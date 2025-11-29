@@ -19,6 +19,12 @@ body{
 /* custom tailwind utilities */
 @theme {
   --font-workSans: "Work Sans", sans-serif;
+  --color-widget-bg-dark: #101828;
+  --color-widget-bg-light: #faf7f5;
+  --color-editor-bg-dark: #101828;
+  --color-editor-bg-light: #faf7f5;
+  --color-readme-preview-bg-dark: #101828;
+  --color-readme-preview-bg-light: #faf7f5;
 }
 
 /* custom tailwind component styles */
@@ -36,21 +42,20 @@ body{
   }
 
   .text-heading {
-    @apply text-2xl font-workSans font-medium !text-gray-900
-    dark:!text-white
+    @apply text-2xl font-workSans font-medium text-gray-900!
+    dark:text-white!
   }
 
   .text-subheading {
-    @apply text-base font-workSans font-medium !text-gray-700
-    dark:!text-gray-300
+    @apply text-base font-workSans font-medium text-gray-700!
+    dark:text-gray-300!
   }
 
   .text-body {
-    @apply text-sm font-workSans font-medium !text-gray-600
-    dark:!text-gray-400
+    @apply text-sm font-workSans font-medium text-gray-600!
+    dark:text-gray-400!
   }
 }
-/*  */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -290,6 +295,11 @@ body{
 .markdown-content code {
   @apply text-gray-800 dark:text-gray-200 px-1.5 py-0.5 rounded-md! text-sm
   font-workSans font-medium border-none;
+}
+
+.markdown-content h2 code {
+  @apply text-gray-800 dark:text-gray-200 px-2 py-1 rounded-md! text-sm
+  font-workSans font-medium border-none bg-gray-100! dark:bg-gray-900!;
 }
 
 .markdown-content pre {
