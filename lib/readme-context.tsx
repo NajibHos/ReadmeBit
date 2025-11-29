@@ -12,6 +12,7 @@ interface ReadmeState {
   saveStatus: 'idle' | 'saving' | 'saved';
   lastSavedAt: number | null;
   cursorPosition: number; // Track cursor position in editor
+  cursorSet: boolean; // whether user explicitly set the cursor (click/keyup)
 }
 
 // Context type
@@ -48,6 +49,7 @@ const initialState: ReadmeState = {
   saveStatus: 'idle',
   lastSavedAt: null,
   cursorPosition: 0,
+  cursorSet: false,
 };
 
 const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState => {
@@ -55,30 +57,66 @@ const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState =>
     case 'ADD_WIDGET': {
       const newWidgets = [...state.widgets, action.payload];
       let newMarkdown: string;
+      let newCursorPos = state.cursorPosition;
+      let newCursorSet = state.cursorSet;
 
-      if (state.isManualEdit) {
-        // Insert widget content at cursor position
-        const before = state.currentMarkdown.substring(0, state.cursorPosition);
+      if (state.cursorSet) {
+        const before = state.currentMarkdown.substring(0,
+          state.cursorPosition);
+
         const after = state.currentMarkdown.substring(state.cursorPosition);
 
-        // Check if before/after already have line breaks
-        const beforeEndsWithBreak = before.endsWith('\n\n') || before.endsWith('\n');
-        const afterStartsWithBreak = after.startsWith('\n\n') || after.startsWith('\n');
+        // Count trailing newlines in before
+        const beforeTrailingBreaks = before.match(/\n+$/)?.[0].length ?? 0;
+
+        // Count leading newlines in after
+        const afterLeadingBreaks = after.match(/^\n+/)?.[0].length ?? 0;
+
+        // Check if before has actual content (not just whitespace)
+        const beforeHasContent = before.trim().length > 0;
+
+        // Check if after has actual content
+        const afterHasContent = after.trim().length > 0;
 
         let beforeSeparator = '';
         let afterSeparator = '';
 
-        // Add separator before only if before has content and doesn't already end with breaks
-        if (before.trim() && !beforeEndsWithBreak) {
+        // If before has content but no trailing breaks, add 2 newlines
+        if (beforeHasContent && beforeTrailingBreaks === 0) {
           beforeSeparator = '\n\n';
         }
 
-        // Add separator after only if after has content and doesn't already start with breaks
-        if (after.trim() && !afterStartsWithBreak) {
+        // If before has content and 1 newline, add 1 more to reach 2
+        else if (beforeHasContent && beforeTrailingBreaks === 1) {
+          beforeSeparator = '\n';
+        }
+
+        // If before has 2+ newlines, don't add any (preserve existing spacing)
+        else if (beforeTrailingBreaks >= 2) {
+          beforeSeparator = '';
+        }
+
+        // Same logic for after
+        if (afterHasContent && afterLeadingBreaks === 0) {
           afterSeparator = '\n\n';
         }
 
-        newMarkdown = `${before}${beforeSeparator}${action.payload.content}${afterSeparator}${after}`.trim();
+        else if (afterHasContent && afterLeadingBreaks === 1) {
+          afterSeparator = '\n';
+        }
+
+        else if (afterLeadingBreaks >= 2) {
+          afterSeparator = '';
+        }
+
+        // Build new markdown
+        newMarkdown = `${before}${beforeSeparator}${action.payload.content}${afterSeparator}${after}`;
+
+        // Advance cursor to end of inserted widget
+        newCursorPos = (before + beforeSeparator + action.payload.content +
+          afterSeparator).length;
+
+        newCursorSet = true;
       } else {
         newMarkdown = generateReadmeMarkdown(newWidgets);
       }
@@ -89,7 +127,8 @@ const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState =>
         isManualEdit: state.isManualEdit,
         saveStatus: state.saveStatus,
         lastSavedAt: state.lastSavedAt,
-        cursorPosition: state.cursorPosition,
+        cursorPosition: newCursorPos,
+        cursorSet: newCursorSet,
       };
     }
 
@@ -117,6 +156,7 @@ const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState =>
       return {
         ...state,
         cursorPosition: action.payload,
+        cursorSet: true,
       };
 
     default:
@@ -137,12 +177,14 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
   const [state, dispatch] = useReducer(readmeReducer, initialState, () => {
     try {
       const saved = localStorage.getItem('readme-storage');
+
       if (saved) {
         return JSON.parse(saved) as ReadmeState;
       }
     } catch (error) {
       console.error('Failed to load saved state:', error);
     }
+
     return initialState;
   });
 
@@ -168,10 +210,12 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
     if (saveTimer.current) {
       clearTimeout(saveTimer.current);
     }
+
     saveTimer.current = window.setTimeout(() => {
       dispatch({ type: 'SET_SAVE_STATUS', payload: { status: 'saved',
         time: Date.now() }
       });
+
       saveTimer.current = null;
     }, SAVE_DEBOUNCE_MS);
   };
@@ -179,6 +223,7 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
   // Action creators
   const addWidget = (widget: ReadmeWidget) => {
     dispatch({ type: 'ADD_WIDGET', payload: widget });
+
     triggerSave();
   };
 
@@ -188,6 +233,7 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
 
   const updateMarkdown = (markdown: string) => {
     dispatch({ type: 'UPDATE_MARKDOWN', payload: markdown });
+
     triggerSave();
   };
 
@@ -225,9 +271,11 @@ export const ReadmeProvider = ({ children }: ReadmeProviderProps) => {
 // Custom hook to use the context
 export const useReadmeContext = (): ReadmeContextType => {
   const context = useContext(ReadmeContext);
+
   if (context === undefined) {
     throw new Error('useReadmeContext must be used within a ReadmeProvider');
   }
+
   return context;
 };
 
@@ -251,7 +299,8 @@ export const useReadmeMarkdown = () => {
   const { state, updateMarkdown, setCursorPosition } = useReadmeContext();
 
   const lastSavedAtFormatted = state.lastSavedAt
-    ? new Date(state.lastSavedAt).toLocaleTimeString(undefined, { hour: 'numeric',
+    ? new Date(state.lastSavedAt).toLocaleTimeString(undefined,
+      { hour: 'numeric',
       minute: '2-digit', hour12: true })
     : null;
 
