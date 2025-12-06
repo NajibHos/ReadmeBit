@@ -7,6 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Feedback",
+  "url": "https://readmebit.com/feedback",
+  "description": "Share feedback and suggestions to help improve ReadmeBit. Your input contributes to new features and updates.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": "https://readmebit.com"
+  }
+}
+
 export default function Feedback() {
 
   async function formAction (formData: FormData) {
@@ -76,6 +88,13 @@ export default function Feedback() {
           </form>
         </div>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
     </div>
   )
 }
