@@ -122,7 +122,7 @@ export default function Features() {
                 Local Storage Support
               </CardTitle>
               <CardDescription>
-                Your progrss stays saved in your browser's local storage
+                Your progress stays saved in your browser's local storage
                 automatically.
               </CardDescription>
             </CardHeader>
