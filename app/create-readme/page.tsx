@@ -8,8 +8,27 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/ConfirmDialog';
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Create README",
+  "url": "https://readmebit.com/create-readme",
+  "description": "Start creating your GitHub README using widget-based editing, markdown formatting, and instant preview.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": "https://readmebit.com"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "ReadmeBit",
+    "applicationCategory": "DeveloperTool",
+    "operatingSystem": "Any",
+    "url": "https://readmebit.com"
+  }
+}
+
 export default function CreateReadme() {
-  
+
   const { widgets } = useReadmeWidgets();
   const { markdown } = useReadmeMarkdown();
 
@@ -114,6 +133,13 @@ export default function CreateReadme() {
           </div>
         </div>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
     </div>
   );
 }
