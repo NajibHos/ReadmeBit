@@ -70,7 +70,7 @@ export function DotPattern({
   cy = 1,
   cr = 1,
   className,
-  glow = false,
+  glow = true,
   ...props
 }: DotPatternProps) {
   const id = useId()
@@ -113,7 +113,7 @@ export function DotPattern({
       ref={containerRef}
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full text-neutral-400/80",
+        "pointer-events-none absolute inset-0 h-full w-full text-sky-600/80",
         className
       )}
       {...props}
