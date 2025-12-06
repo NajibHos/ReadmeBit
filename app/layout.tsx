@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const workSans = Work_Sans({
   variable: "--font-workSans",
@@ -15,10 +16,50 @@ const workSans = Work_Sans({
 
 export const metadata: Metadata = {
   title: "ReadmeBit",
-  description: `ReadmeBit let's you create and customize your Github README easily.
-  Select widgets, edit with ease, preview instantly, copy as makdown or export README.md file. Free
-  and Open Source.`,
+  description: "Create your GitHub README the easy way. Build clean README files using widgets, markdown formatting tools, instant GitHub-style preview, and local storage support — no login needed.",
+  keywords: [
+    'readme', 'readme editor', 'markdown editor', 'github readme editor',
+    'readme generator', 'readmebit', 'markdown formatting', 'create readme',
+    'github preview', 'widget based editing', 'github readme generator'
+  ],
+  openGraph: {
+    title: 'ReadmeBit',
+    description: 'Create your GitHub README easily with ReadmeBit. Build and preview your README using widgets, markdown formatting, and live preview.',
+    siteName: 'ReadmeBit',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ReadmeBit',
+    description: 'Create your GitHub README easily with widgets, formatting, and live preview.',
+    creator: '@najib_dev'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": 'large',
+      "max-video-preview": -1
+    }
+  }
 };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ReadmeBit",
+  "url": "https://readmebit.com",
+  "logo": "",
+  "sameAs": [
+    "https://github.com/NajibHos",
+    "https://x.com/najib_dev"
+  ]
+}
 
 export default function RootLayout({
   children,
@@ -41,8 +82,11 @@ export default function RootLayout({
             <main className="h-auto w-full">
               {children}
 
-              {/* vercel analytics */}
+              {/* vercel analytics component */}
               <Analytics />
+
+              {/* vercel speed insight component */}
+              <SpeedInsights />
 
               {/* shadcn toast component */}
               <Toaster
@@ -53,6 +97,14 @@ export default function RootLayout({
             <Footer/>
           </ReadmeProvider>
         </ThemeProvider>
+
+        {/* json-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
       </body>
     </html>
   );
