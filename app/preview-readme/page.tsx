@@ -8,6 +8,22 @@ import StatsPanel from '@/components/widgets/StatsPanel';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Preview README",
+  "url": "https://readmebit.com/preview-readme",
+  "description": "Preview your GitHub README in a clean GitHub-style viewer before exporting.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "url": "https://readmebit.com"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "ReadmeBit"
+  }
+}
+
 export default function PreviewReadme() {
   const { markdown } = useReadmeMarkdown();
 
@@ -142,6 +158,13 @@ export default function PreviewReadme() {
         )}
       </div>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
     </div>
   );
 }
