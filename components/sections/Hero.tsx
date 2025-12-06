@@ -3,7 +3,7 @@ import CTAButton from "../CTAButton";
 
 export default function Hero() {
   return (
-    <div className="h-[80vh] lg:h-[90vh] w-full flex justify-center
+    <div className="h-[85vh] lg:h-[90vh] w-full flex justify-center
       items-center relative overflow-hidden bg-transparent"
     >
       <div className="h-auto w-[90%] flex flex-col justify-center
@@ -29,7 +29,6 @@ export default function Hero() {
 
       {/* dot pattern animation */}
       <DotPattern
-        glow={true}
         className="h-auto w-full absolute inset-0 z-0 size-full"
       />
 
