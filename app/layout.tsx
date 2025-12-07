@@ -54,7 +54,7 @@ const jsonLd = {
   "@type": "Organization",
   "name": "ReadmeBit",
   "url": "https://readmebit.com",
-  "logo": "",
+  "logo": "/logo.png",
   "sameAs": [
     "https://github.com/NajibHos",
     "https://x.com/najib_dev"
@@ -73,7 +73,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
