@@ -78,33 +78,60 @@ const readmeReducer = (state: ReadmeState, action: ReadmeAction): ReadmeState =>
         // Check if after has actual content
         const afterHasContent = after.trim().length > 0;
 
+        // Find the last widget before cursor and first widget after cursor
+        let beforeWidgetType: string | null = null;
+        let afterWidgetType: string | null = null;
+
+         // Scan from end of before to find last widget type
+        for (let i = newWidgets.length - 2; i >= 0; i--) {
+          if (newWidgets[i].content.length > 0) {
+            beforeWidgetType = newWidgets[i].type;
+            break;
+          }
+        }
+
+        // For after, we'd need to track which widgets come after, but since we're
+        // appending, we check by scanning remaining widgets
+        // Simpler: check if the widget right before cursor position matches our type
+        const beforeTrimmed = before.trim();
+        if (beforeTrimmed.length > 0) {
+          // Find the last complete widget in before
+          for (let i = newWidgets.length - 2; i >= 0; i--) {
+            if (beforeTrimmed.includes(newWidgets[i].content)) {
+              beforeWidgetType = newWidgets[i].type;
+              break;
+            }
+          }
+        }
+
         let beforeSeparator = '';
         let afterSeparator = '';
 
-        // If before has content but no trailing breaks, add 2 newlines
-        if (beforeHasContent && beforeTrailingBreaks === 0) {
+        // Only add separator before if previous widget is NOT the same type
+        if (beforeHasContent && beforeTrailingBreaks === 0 && beforeWidgetType !== action.payload.type) {
           beforeSeparator = '\n\n';
         }
-
-        // If before has content and 1 newline, add 1 more to reach 2
-        else if (beforeHasContent && beforeTrailingBreaks === 1) {
+        else if (beforeHasContent && beforeTrailingBreaks === 1 && beforeWidgetType !== action.payload.type) {
           beforeSeparator = '\n';
         }
-
-        // If before has 2+ newlines, don't add any (preserve existing spacing)
+        else if (beforeTrailingBreaks >= 2 && beforeWidgetType === action.payload.type) {
+          // If same widget type and already has 2+ breaks, reduce to none
+          beforeSeparator = '';
+        }
         else if (beforeTrailingBreaks >= 2) {
           beforeSeparator = '';
         }
 
         // Same logic for after
-        if (afterHasContent && afterLeadingBreaks === 0) {
+        if (afterHasContent && afterLeadingBreaks === 0 && afterWidgetType !== action.payload.type) {
           afterSeparator = '\n\n';
         }
-
-        else if (afterHasContent && afterLeadingBreaks === 1) {
+        else if (afterHasContent && afterLeadingBreaks === 1 && afterWidgetType !== action.payload.type) {
           afterSeparator = '\n';
         }
-
+        else if (afterLeadingBreaks >= 2 && afterWidgetType === action.payload.type) {
+          afterSeparator = '';
+        }
         else if (afterLeadingBreaks >= 2) {
           afterSeparator = '';
         }
