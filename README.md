@@ -11,7 +11,10 @@ ReadmeBit is a lightweight online editor that helps developers create clean, wel
 
 ## Demo
 
+### Live app:
 [Live app](https://readmebit.com)
+
+## Share feedback:
 [Share feedback](https://readmebit.com/feedback)
 
 ## Key Features
@@ -43,5 +46,6 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 ## Author
 
 Developed by Najib Hossain
+
 [X](https://x.com/najib_dev)
 [Portfolio](https://najibdev.vercel.app)
