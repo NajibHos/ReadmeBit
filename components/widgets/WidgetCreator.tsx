@@ -80,8 +80,7 @@ const createWidgetContent = (type: string): string => {
       return '![Badge](https://img.shields.io/badge/Example-badge-blue)';
 
     case 'skills':
-      return `// edit skills as your need
-      ![javascript](https://img.shields.io/badge/javascript-%23121011.svg?style=for-the-badge&logo=javascript)
+      return `![javascript](https://img.shields.io/badge/javascript-%23121011.svg?style=for-the-badge&logo=javascript)
       ![react](https://img.shields.io/badge/react-%23121011.svg?style=for-the-badge&logo=react)
       ![github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github)`;
 

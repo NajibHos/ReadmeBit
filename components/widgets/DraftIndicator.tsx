@@ -1,7 +1,7 @@
 import { useReadmeMarkdown } from '@/lib/readme-context';
 import { Check, Ghost, Loader2 } from 'lucide-react';
 
-export default function DraftIndicator() {
+export default function DraftIndicator( { cursor } ) {
   const { saveStatus, lastSavedAtFormatted } = useReadmeMarkdown();
 
   if (saveStatus === 'idle') {
@@ -23,6 +23,7 @@ export default function DraftIndicator() {
 
   } else if (saveStatus === 'saving') {
     return (
+      <div className='flex justify-between items-center'>
       <span className='flex justify-start items-center gap-2'>
         <span>
           <Loader2
@@ -36,10 +37,25 @@ export default function DraftIndicator() {
           </h2>
         </span>
       </span>
+      <span>
+        {
+          cursor ? (
+            <h2 className='text-subheading text-sm!'>
+              Cursor active
+              <span className="h-2 w-2 ml-3 animate-ping rounded-full
+              bg-sky-600 inline-flex opacity-75"></span>
+            </h2>
+          ) : (
+            ''
+          )
+        }
+      </span>
+      </div>
     )
 
   } else if (saveStatus === 'saved') {
     return (
+      <div className='flex justify-between items-center'>
       <span className='flex justify-start items-center gap-2'>
         <span>
           <Check
@@ -56,6 +72,18 @@ export default function DraftIndicator() {
           </h2>
         </span>
       </span>
+      <span>
+        {
+          cursor ? (
+            <h2 className='text-subheading text-sm!'>
+              Cursor active
+              <span className="h-2 w-2 ml-3 animate-ping rounded-full
+              bg-sky-600 inline-flex opacity-75"></span>
+            </h2>
+          ) : ('')
+        }
+      </span>
+      </div>
     )
 
   } else {

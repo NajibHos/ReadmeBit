@@ -4,27 +4,36 @@ import { useReadmeMarkdown } from '@/lib/readme-context';
 import { Textarea } from '../ui/textarea';
 import MarkdownToolbar from './MarkdownToolbar';
 import DraftIndicator from './DraftIndicator';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 export default function ReadmeEditor() {
   const { markdown, updateMarkdown, setCursorPosition } = useReadmeMarkdown();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [cursorHint, setCursorHint] = useState(false);
 
-  const handleTextareaChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextareaChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) =>
+  {
     updateMarkdown(ev.target.value);
     setCursorPosition(ev.target.selectionStart);
+    setCursorHint(true);
   };
 
   const handleClick = () => {
     if (textareaRef.current) {
       setCursorPosition(textareaRef.current.selectionStart);
+      setCursorHint(true);
     }
   };
 
   const handleKeyUp = () => {
     if (textareaRef.current) {
       setCursorPosition(textareaRef.current.selectionStart);
+      setCursorHint(true);
     }
+  };
+
+  const handleBlur = () => {
+    setCursorHint(false);
   };
 
   return (
@@ -40,7 +49,7 @@ export default function ReadmeEditor() {
           </h2>
         </div>
         <div className='h-auto w-full text-left'>
-          <DraftIndicator />
+          <DraftIndicator cursor={cursorHint} />
         </div>
       </div>
 
@@ -55,9 +64,10 @@ export default function ReadmeEditor() {
           onChange={handleTextareaChange}
           onClick={handleClick}
           onKeyUp={handleKeyUp}
+          onBlur={handleBlur}
           className='h-full w-full p-5 text-base! font-workSans font-medium
-          bg-editor-bg-light dark:bg-editor-bg-dark text-gray-900
-          dark:text-white border-transparent! rounded-none! focus:outline-0!
+          bg-[#faf7f5] dark:bg-gray-900 text-gray-900 dark:text-white
+          border-transparent! rounded-none! focus:outline-0!
           focus:ring-2! overflow-auto'
           placeholder='Start writing your README.md content here...'
         />
