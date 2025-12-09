@@ -256,6 +256,18 @@ body{
   underline-offset-4 hover:text-blue-700 transition-colors duration-200;
 }
 
+/* badge */
+.markdown-content p:has(img) {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+}
+
+.markdown-content p img {
+  border-radius: 0 !important;
+}
+
 /* Horizontal Line */
 .markdown-content hr {
   height: 0.25em;
