@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ReadmeBit',
     description: 'Create your GitHub README easily with widgets, formatting, and live preview.',
-    creator: '@najib_dev'
+    creator: '@najibdev'
   },
   robots: {
     index: true,
@@ -57,7 +57,7 @@ const jsonLd = {
   "logo": "/logo.png",
   "sameAs": [
     "https://github.com/NajibHos",
-    "https://x.com/najib_dev"
+    "https://x.com/najibdev"
   ]
 }
 
