@@ -9,11 +9,16 @@ export default function Header() {
       <div className="h-auto w-[90%] flex justify-between items-center">
         <div className="h-auto w-auto">
           <Link href='/'>
-            <img
+            {/* <img
               src="/logo.png"
               alt="ReadmeBit Logo"
               className="rounded h-12 w-auto"
-            />
+            /> */}
+            <h2 className="text-2xl lg:text-3xl font-workSans font-semibold
+              text-gray-900 dark:text-white cursor-pointer"
+            >
+              ReadmeBit
+            </h2>
           </Link>
         </div>
         <div className="h-auto w-auto flex justify-center items-center
