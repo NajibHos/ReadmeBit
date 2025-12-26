@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm'
 import StatsPanel from '@/components/widgets/StatsPanel';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { useReadmeActions } from '@/hooks/use-readme-actions';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -78,7 +79,7 @@ export default function PreviewReadme() {
         <div className='h-auto w-auto'>
           <Link href="/create-readme">
             <Button
-              variant="secondary"
+              variant="outline"
             >
               Back to Editor
             </Button>
