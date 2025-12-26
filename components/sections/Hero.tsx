@@ -1,5 +1,6 @@
 import { DotPattern } from "../magicui/dot-pattern";
 import CTAButton from "../CTAButton";
+import ImportGithubDialog from "../ImportGithubDialog";
 
 export default function Hero() {
   return (
@@ -24,7 +25,12 @@ export default function Hero() {
         </div>
 
         {/* CTA */}
-        <CTAButton />
+        <div className="mt-5 flex justify-center items-center gap-6">
+          <CTAButton />
+          <span>
+            <ImportGithubDialog />
+          </span>
+        </div>
       </div>
 
       {/* dot pattern animation */}

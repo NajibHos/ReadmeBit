@@ -12,7 +12,7 @@ export default function ConfirmDialog() {
     <div className="h-auto w-auto">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="secondary_red">Clear All</Button>
+          <Button variant="destructive">Clear All</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>

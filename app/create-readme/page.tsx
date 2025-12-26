@@ -7,6 +7,11 @@ import ReadmeEditor from '@/components/widgets/ReadmeEditor';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { useReadmeActions } from '@/hooks/use-readme-actions';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import StatsPanel from '@/components/widgets/StatsPanel';
+import ImportGithubDialog from '@/components/ImportGithubDialog';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -31,40 +36,7 @@ export default function CreateReadme() {
 
   const { widgets } = useReadmeWidgets();
   const { markdown } = useReadmeMarkdown();
-
-  const handleDownload = () => {
-    if (!markdown) {
-      toast.error('No markdown to download');
-      return;
-    } else {
-      toast.success('Downloading README.md');
-    }
-
-    // download markdown as README.md file
-    const blob = new Blob([markdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'README.md';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const handleCopyCode = async () => {
-    try {
-      // copy to clipboard
-      await navigator.clipboard.writeText(markdown);
-      // toast notification
-      toast.success('Markdown copied to clipboard');
-    } catch (err) {
-      // toast notification
-      toast.error('Unable to copy markdown');
-      // show error in console
-      console.error('Failed to copy text: ', err);
-    }
-  };
+  const { handleDownload, handleCopyCode } = useReadmeActions(markdown);
 
   return (
     <div className="section-container">
@@ -86,7 +58,7 @@ export default function CreateReadme() {
                 disabled={!markdown}
                 variant="teal"
               >
-                Preview
+                Full Preview
               </Button>
             </Link>
           </div>
@@ -105,10 +77,14 @@ export default function CreateReadme() {
             <Button
               onClick={handleCopyCode}
               disabled={!markdown}
-              variant="secondary"
+              variant="outline"
             >
               Copy code
             </Button>
+          </div>
+
+          <div className='h-auto w-auto'>
+            <ImportGithubDialog />
           </div>
 
           {/* dialog component */}
