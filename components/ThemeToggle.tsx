@@ -13,8 +13,8 @@ export default function ToggleTheme() {
       {
         resolvedTheme === 'light' && <Button
           onClick={() => setTheme('dark')}
-          variant="secondary"
-          size="icon"
+          variant="outline"
+          size="icon-sm"
         >
           <Sun />
         </Button>
@@ -22,8 +22,8 @@ export default function ToggleTheme() {
       {
         resolvedTheme === 'dark' && <Button
           onClick={() => setTheme('light')}
-          variant="secondary"
-          size="icon"
+          variant="outline"
+          size="icon-sm"
         >
           <Moon />
         </Button>
