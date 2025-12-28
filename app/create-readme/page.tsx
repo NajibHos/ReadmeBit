@@ -4,13 +4,9 @@ import Link from 'next/link';
 import { useReadmeWidgets, useReadmeMarkdown } from '@/lib/readme-context';
 import WidgetSidebar from '@/components/widgets/Widgets';
 import ReadmeEditor from '@/components/widgets/ReadmeEditor';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import { useReadmeActions } from '@/hooks/use-readme-actions';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import StatsPanel from '@/components/widgets/StatsPanel';
 import ImportGithubDialog from '@/components/ImportGithubDialog';
 
 const jsonLd = {
