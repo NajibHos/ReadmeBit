@@ -28,7 +28,7 @@ export default function Home() {
       <Templates />
 
       {/* Feedback section */}
-      <Feedback />
+      {/* <Feedback /> */}
 
       <script
         type="application/ld+json"
