@@ -35,7 +35,7 @@ export default function TemplateSelector() {
               <CardDescription>
                 {template.description}
               </CardDescription>
-              <CardContent className="h-auto w-full mt-1 flex gap-6">
+              <CardContent className="h-auto w-full mt-1.5 flex gap-6">
                 <div>
                   <Button
                     onClick={() => handlePreviewTemplate(template.content)}
@@ -48,7 +48,7 @@ export default function TemplateSelector() {
                 <div>
                   <Button
                     onClick={() => handleSelectTemplate(template.content)}
-                    variant="secondary"
+                    variant="outline"
                     size="sm"
                   >
                     Use Template
