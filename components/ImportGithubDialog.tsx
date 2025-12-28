@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function ImportGithubDialog() {
+  const { markdown } = useReadmeMarkdown();
   const { updateMarkdown } = useReadmeMarkdown();
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
@@ -122,6 +123,7 @@ export default function ImportGithubDialog() {
         <Button
           variant='outline'
           size={pathname === '/' ? 'lg' : 'default'}
+          disabled={markdown.trim().length > 0}
         >
           Import Repository
         </Button>
@@ -150,8 +152,9 @@ export default function ImportGithubDialog() {
           </div>
         </div>
         <DialogFooter
-          className='flex justify-start! items-center gap-6'
+          className='flex flex-row justify-start! items-center gap-6'
         >
+          <span>
           <Button
             onClick={handleImport} disabled={loading || !url}
             variant='green'
@@ -161,12 +164,16 @@ export default function ImportGithubDialog() {
             animate-spin" />}
             {loading ? 'Importing' : 'Import'}
           </Button>
+          </span>
+
+          <span>
           <Button
             variant="outline" onClick={() => setOpen(false)}
             size='sm'
           >
             Cancel
           </Button>
+          </span>
         </DialogFooter>
       </DialogContent>
     </Dialog>
