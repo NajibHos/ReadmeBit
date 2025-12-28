@@ -299,6 +299,11 @@ body{
   dark:text-gray-200 leading-7;
 }
 
+.markdown-content p code {
+  @apply bg-gray-100! dark:bg-gray-900! px-1.5! py-0.5! rounded
+  font-workSans font-medium;
+}
+
 .markdown-content blockquote {
   @apply border-l-4 pl-4 py-2 mb-4 text-gray-800 dark:text-gray-200 italic
   font-workSans font-medium bg-gray-100! dark:bg-gray-900!;
