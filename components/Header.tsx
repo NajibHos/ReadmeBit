@@ -29,7 +29,7 @@ export default function Header() {
               href="https://github.com/NajibHos/ReadmeBit"
               target="_blank"
             >
-              <Button variant="secondary" size="icon">
+              <Button variant="outline" size="icon-sm">
                 <Github />
               </Button>
             </a>
