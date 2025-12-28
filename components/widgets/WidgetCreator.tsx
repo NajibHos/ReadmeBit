@@ -17,16 +17,16 @@ interface ItemType {
 const createWidgetContent = (type: string): string => {
   switch (type) {
     case 'title':
-      return `# Project title\n\nProject description`;
+      return `# Title\n\nDescription`;
 
     case 'heading':
-      return `## Section Header`;
+      return `##`;
 
     case 'subheading':
-      return `### Subheader`;
+      return `###`;
 
     case 'text':
-      return 'Text content';
+      return 'Text';
 
     case 'list':
       const items = ['Item 1', 'Item 2', 'Item 3'];
@@ -36,7 +36,7 @@ const createWidgetContent = (type: string): string => {
       return `\`\`\`javascript\n// Your code here\n\`\`\``;
 
     case 'quote':
-      return `> Your quote here.`;
+      return `> Quote`;
 
     case 'installation':
       return `\`\`\`bash\nnpm install your-package-name\n\`\`\``;
