@@ -3,9 +3,9 @@
 import { useReadmeMarkdown } from '@/lib/readme-context';
 import Link from 'next/link';
 import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm'
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import StatsPanel from '@/components/widgets/StatsPanel';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { useReadmeActions } from '@/hooks/use-readme-actions';
 
@@ -94,8 +94,11 @@ export default function PreviewReadme() {
             <div className='h-auto w-full px-6 py-5 markdown-content
               bg-transparent'
             >
-              <Markdown remarkPlugins={[remarkGfm]}>
-                {`${markdown}`}
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+              >
+                {markdown}
               </Markdown>
             </div>
           </div>
