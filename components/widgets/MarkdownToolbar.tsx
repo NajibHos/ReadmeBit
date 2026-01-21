@@ -21,7 +21,7 @@ export default function MarkdownToolbar() {
 
   return (
     <div className="h-auto w-full flex gap-5 px-5 py-3 border-b
-      border-border-color bg-[#faf7f5] dark:bg-gray-900"
+      border-border-color bg-[#ffffff] dark:bg-gray-900"
     >
       <button
         onClick={() => insertFormat('**')}
