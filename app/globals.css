@@ -20,11 +20,14 @@ body{
 @theme {
   --font-workSans: "Work Sans", sans-serif;
   --color-widget-bg-dark: #101828;
-  --color-widget-bg-light: #faf7f5;
+  --color-widget-bg-light: #ffffff;
+  /* --color-widget-bg-light: #faf7f5; */
   --color-editor-bg-dark: #101828;
-  --color-editor-bg-light: #faf7f5;
+  --color-editor-bg-light: #ffffff;
+  /* --color-editor-bg-light: #faf7f5; */
   --color-readme-preview-bg-dark: #101828;
-  --color-readme-preview-bg-light: #faf7f5;
+  --color-readme-preview-bg-light: #ffffff;
+  /* --color-readme-preview-bg-light: #faf7f5; */
 }
 
 /* custom tailwind component styles */
@@ -101,7 +104,8 @@ body{
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #f8f8f8;
+  /* --background: oklch(1 0 0); */
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
