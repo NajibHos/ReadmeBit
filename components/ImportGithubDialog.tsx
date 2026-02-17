@@ -152,7 +152,7 @@ export default function ImportGithubDialog() {
           </div>
         </div>
         <DialogFooter
-          className='flex flex-row justify-start! items-center gap-6'
+          className='flex flex-row justify-start! items-center gap-4'
         >
           <span>
           <Button

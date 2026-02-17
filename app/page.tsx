@@ -7,11 +7,11 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "ReadmeBit",
-  "url": "https://readmebit.com",
+  "url": "https://www.readmebit.com",
   "description": "Create your GitHub README the easy way using widgets, markdown formatting tools, instant GitHub-style preview, and local storage support.",
   "isPartOf": {
     "@type": "WebSite",
-    "url": "https://readmebit.com"
+    "url": "https://www.readmebit.com"
   }
 }
 

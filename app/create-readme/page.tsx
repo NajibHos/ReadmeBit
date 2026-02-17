@@ -13,18 +13,18 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Create README",
-  "url": "https://readmebit.com/create-readme",
+  "url": "https://www.readmebit.com/create-readme",
   "description": "Start creating your GitHub README using widget-based editing, markdown formatting, and instant preview.",
   "isPartOf": {
     "@type": "WebSite",
-    "url": "https://readmebit.com"
+    "url": "https://www.readmebit.com"
   },
   "about": {
     "@type": "SoftwareApplication",
     "name": "ReadmeBit",
     "applicationCategory": "DeveloperTool",
     "operatingSystem": "Any",
-    "url": "https://readmebit.com"
+    "url": "https://www.readmebit.com"
   }
 }
 

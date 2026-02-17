@@ -22,6 +22,14 @@ export const metadata: Metadata = {
     'readme generator', 'readmebit', 'markdown formatting', 'create readme',
     'github preview', 'widget based editing', 'github readme generator'
   ],
+  metadataBase: new URL('https://www.readmebit.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'de-DE': '/de-DE',
+    },
+  },
   openGraph: {
     title: 'ReadmeBit',
     description: 'Create your GitHub README easily with ReadmeBit. Build and preview your README using widgets, markdown formatting, and live preview.',
@@ -53,7 +61,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ReadmeBit",
-  "url": "https://readmebit.com",
+  "url": "https://www.readmebit.com",
   "logo": "/logo.png",
   "sameAs": [
     "https://github.com/NajibHos",
