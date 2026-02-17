@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
 import StatsPanel from '@/components/widgets/StatsPanel';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { useReadmeActions } from '@/hooks/use-readme-actions';
 
