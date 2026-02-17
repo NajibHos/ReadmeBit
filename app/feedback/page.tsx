@@ -11,11 +11,11 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Feedback",
-  "url": "https://readmebit.com/feedback",
+  "url": "https://www.readmebit.com/feedback",
   "description": "Share feedback and suggestions to help improve ReadmeBit. Your input contributes to new features and updates.",
   "isPartOf": {
     "@type": "WebSite",
-    "url": "https://readmebit.com"
+    "url": "https://www.readmebit.com"
   }
 }
 

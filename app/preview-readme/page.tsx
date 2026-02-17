@@ -12,11 +12,11 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Preview README",
-  "url": "https://readmebit.com/preview-readme",
+  "url": "https://www.readmebit.com/preview-readme",
   "description": "Preview your GitHub README in a clean GitHub-style viewer before exporting.",
   "isPartOf": {
     "@type": "WebSite",
-    "url": "https://readmebit.com"
+    "url": "https://www.readmebit.com"
   },
   "about": {
     "@type": "SoftwareApplication",
