@@ -46,37 +46,43 @@ export default function CreateReadme() {
 
         {/* Action buttons */}
         <div className="h-auto w-full flex justify-center md:justify-start
-          items-center gap-6 flex-wrap"
+          items-center gap-4 flex-wrap"
         >
           <div className='h-auto w-auto'>
             <Link href="/preview-readme">
-              <Button
+              <button
+                className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+                rounded bg-blue-700 text-white hover:bg-blue-700/60
+                disabled:bg-blue-700/50 disabled:cursor-not-allowed"
                 disabled={!markdown}
-                variant="teal"
               >
                 Full Preview
-              </Button>
+              </button>
             </Link>
           </div>
 
           <div className='h-auto w-auto'>
-            <Button
+            <button
               onClick={handleDownload}
               disabled={!markdown}
-              variant="green"
+              className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+              rounded bg-green-700 text-white hover:bg-green-700/60
+              disabled:bg-green-700/50 disabled:cursor-not-allowed"
             >
               Download
-            </Button>
+            </button>
           </div>
 
           <div className='h-auto w-auto'>
-            <Button
+            <button
               onClick={handleCopyCode}
               disabled={!markdown}
-              variant="outline"
+              className="px-4 py-2 text-sm font-workSans font-medium shadow-xs
+              rounded bg-secondary hover:bg-gray-200 dark:hover:bg-gray-50/60 text-black dark:text-white dark:hover:text-black
+              disabled:bg-secondary/80 dark:disabled:bg-secondary/60 disabled:text-black/80 dark:disabled:text-gray-200 disabled:cursor-not-allowed"
             >
-              Copy code
-            </Button>
+              Copy Code
+            </button>
           </div>
 
           <div className='h-auto w-auto'>
