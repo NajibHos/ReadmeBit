@@ -3,7 +3,6 @@
 import { useReadmeMarkdown } from "@/lib/readme-context";
 import { useRouter } from "next/navigation";
 import { templates } from "@/lib/templates";
-import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function TemplateSelector() {
@@ -21,7 +20,7 @@ export default function TemplateSelector() {
   }
 
   return (
-    <div className="h-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className="h-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-4">
       {
         templates.map((template) => (
           <Card
@@ -35,24 +34,24 @@ export default function TemplateSelector() {
               <CardDescription>
                 {template.description}
               </CardDescription>
-              <CardContent className="h-auto w-full mt-1.5 flex gap-6">
+              <CardContent className="h-auto w-full mt-1.5 flex gap-4">
                 <div>
-                  <Button
+                  <button
                     onClick={() => handlePreviewTemplate(template.content)}
-                    variant="teal"
-                    size="sm"
+                    className="px-3.5 py-1.5 text-sm font-workSans font-medium shadow-sm
+                    rounded bg-blue-700 text-white hover:bg-blue-700/60"
                   >
                     Preview
-                  </Button>
+                  </button>
                 </div>
                 <div>
-                  <Button
+                  <button
                     onClick={() => handleSelectTemplate(template.content)}
-                    variant="outline"
-                    size="sm"
+                    className="px-3.5 py-1.5 text-sm font-workSans font-medium shadow-sm
+                    bg-secondary hover:bg-gray-200 dark:hover:bg-gray-50/60 text-black dark:text-white dark:hover:text-black rounded"
                   >
                     Use Template
-                  </Button>
+                  </button>
                 </div>
               </CardContent>
             </CardHeader>
