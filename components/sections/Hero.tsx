@@ -25,7 +25,7 @@ export default function Hero() {
         </div>
 
         {/* CTA */}
-        <div className="mt-5 flex justify-center items-center gap-6">
+        <div className="mt-5 flex justify-center items-center gap-4">
           <CTAButton />
           <span>
             <ImportGithubDialog />
