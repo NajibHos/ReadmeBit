@@ -43,7 +43,9 @@ export default function StatsPanel({ content }: { content: string }) {
       text-gray-700 dark:text-gray-300"
     >
       <span>{words} words</span>
+      <span className="text-gray-400 dark:text-gray-600">|</span>
       <span>{chars} characters</span>
+      <span className="text-gray-400 dark:text-gray-600">|</span>
       <span>~ {readingTime} min read</span>
     </div>
   );
