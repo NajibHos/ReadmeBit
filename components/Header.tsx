@@ -22,14 +22,18 @@ export default function Header() {
           </Link>
         </div>
         <div className="h-auto w-auto flex justify-center items-center
-          gap-5"
+          gap-4"
         >
           <div className="h-auto w-auto">
             <a
               href="https://github.com/NajibHos/ReadmeBit"
               target="_blank"
             >
-              <Button variant="outline" size="icon-sm">
+              <Button
+                variant="secondary"
+                size="icon"
+                className="rounded-md"
+              >
                 <Github />
               </Button>
             </a>
