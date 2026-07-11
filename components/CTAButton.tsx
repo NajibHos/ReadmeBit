@@ -1,25 +1,17 @@
 'use client';
 
 import Link from "next/link";
-import { Button } from "./ui/button";
 
 export default function CTAButton() {
   return (
     <div className="h-auto w-auto z-50!">
       <Link href="/create-readme">
-        {/* <button
-          className="px-6 py-3 text-base font-workSans font-semibold
-          text-white bg-blue-700 hover:opacity-90 border
-          border-white/20 rounded-full hover:scale-105"
+        <button
+          className="px-5 py-2.5 text-sm font-workSans font-medium shadow-sm
+          rounded bg-blue-700 text-white hover:bg-blue-700/60"
         >
           Start Creating
-        </button> */}
-        <Button
-          variant='teal'
-          size='lg'
-        >
-          Start Creating
-        </Button>
+        </button>
       </Link>
     </div>
   );
