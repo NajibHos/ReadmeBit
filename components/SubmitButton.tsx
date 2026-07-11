@@ -4,19 +4,19 @@ import { useFormStatus } from "react-dom";
 import { Button } from "./ui/button";
 
 export default function SubmitButton() {
-  
+
   const { pending } = useFormStatus();
 
   return (
     <div className="h-auto w-full mt-2">
-      <Button 
+      <button
         type="submit"
-        variant="blue"
         disabled={pending}
-        className="w-full" 
+        className="w-full py-2.5 text-sm font-medium text-white bg-blue-700
+        hover:bg-blue-700/60 rounded"
       >
         {pending ? 'Submitting...' : 'Submit'}
-      </Button>
+      </button>
     </div>
   )
 }
