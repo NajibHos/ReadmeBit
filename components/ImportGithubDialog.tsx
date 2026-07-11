@@ -120,24 +120,28 @@ export default function ImportGithubDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant='outline'
-          size={pathname === '/' ? 'lg' : 'default'}
+        <button
+          className={`text-sm font-workSans font-medium shadow-sm
+          rounded bg-secondary hover:bg-gray-200 dark:hover:bg-gray-50/60 text-black dark:text-white dark:hover:text-black ${pathname !== '/'
+          ? 'px-4 py-2 shadow-xs'
+          : 'px-5 py-2.5'}`}
           disabled={markdown.trim().length > 0}
         >
           Import Repository
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Import from GitHub</DialogTitle>
           <DialogDescription>
-            Enter a GitHub repository URL to import its README.
+            Enter a gitHub repository url to import its README.
             <br />
-            (This will overwrite your current content)
+            <span className="text-xs font-medium text-destructive">
+              (This will overwrite your current content)
+            </span>
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 pt-2 pb-2.5">
           <div className="grid gap-3">
             <Label htmlFor="url">Repository URL</Label>
             <Input
@@ -148,31 +152,35 @@ export default function ImportGithubDialog() {
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleImport();
               }}
+              required
             />
           </div>
         </div>
         <DialogFooter
           className='flex flex-row justify-start! items-center gap-4'
         >
-          <span>
-          <Button
-            onClick={handleImport} disabled={loading || !url}
-            variant='green'
-            size='sm'
+          <span className="w-auto">
+          <button
+            className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+            rounded bg-blue-700 text-white hover:bg-blue-700/60
+            flex justify-start items-center gap-1"
+            onClick={handleImport}
+            disabled={loading || !url}
           >
-            {loading && <Loader2 className="mr-0 h-5 w-5
+            {loading && <Loader2 className="mr-0 h-4.5 w-4.5
             animate-spin" />}
             {loading ? 'Importing' : 'Import'}
-          </Button>
+          </button>
           </span>
 
-          <span>
-          <Button
-            variant="outline" onClick={() => setOpen(false)}
-            size='sm'
+          <span className="w-auto">
+          <button
+            className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+            rounded bg-secondary hover:bg-gray-200 dark:hover:bg-gray-50/60 text-black dark:text-white dark:hover:text-black"
+            onClick={() => setOpen(false)}
           >
             Cancel
-          </Button>
+          </button>
           </span>
         </DialogFooter>
       </DialogContent>
