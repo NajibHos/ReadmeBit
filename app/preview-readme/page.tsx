@@ -41,29 +41,32 @@ export default function PreviewReadme() {
 
       {/* Action buttons */}
       <div className={`h-auto w-full ${!markdown ? 'hidden' : 'block'}
-        flex justify-center lg:justify-start items-center gap-6`}
+        flex justify-center lg:justify-start items-center gap-4`}
       >
         <div className='h-auto w-auto'>
           <Link href="/create-readme">
-            <Button
-              variant="outline"
+            <button
+              className="px-4 py-2 text-sm font-workSans font-medium shadow-xs
+              rounded bg-secondary hover:bg-gray-200 dark:hover:bg-gray-50/60 text-black dark:text-white dark:hover:text-black"
             >
               Back to Editor
-            </Button>
+            </button>
           </Link>
         </div>
         <div className="h-auto w-auto">
-          <Button
+          <button
             onClick={handleCopyCode}
-            variant="teal"
+            className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+            rounded bg-blue-700 text-white hover:bg-blue-700/60"
           >
-            Copy code
-          </Button>
+            Copy Code
+          </button>
         </div>
         <div className="h-auto w-auto">
           <Button
             onClick={handleDownload}
-            variant="green"
+            className="px-4 py-2 text-sm font-workSans font-medium shadow-sm
+            rounded bg-green-700 text-white hover:bg-green-700/60"
           >
             Download
           </Button>
