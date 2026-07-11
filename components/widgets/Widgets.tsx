@@ -25,7 +25,7 @@ export default function Widgets() {
 
       {/* Grid layout with 2 widgets per row */}
       <div className="h-[300px] lg:h-[522px] w-full px-5 py-6 grid
-        grid-cols-2 gap-5 overflow-auto"
+        grid-cols-2 gap-4 overflow-auto"
       >
         {
           WIDGET_TYPES.map((widget) => (
