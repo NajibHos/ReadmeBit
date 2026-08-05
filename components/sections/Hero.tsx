@@ -8,7 +8,7 @@ export default function Hero() {
       items-center relative overflow-hidden bg-transparent"
     >
       <div className="h-auto w-[90%] flex flex-col justify-center
-        items-center gap-8 lg:gap-7"
+        items-center gap-7 lg:gap-5"
       >
         <div className="h-auto w-full lg:w-[50%] text-center z-50">
           <h2 className="text-3xl lg:text-5xl font-workSans font-bold
@@ -25,11 +25,16 @@ export default function Hero() {
         </div>
 
         {/* CTA */}
-        <div className="mt-5 flex justify-center items-center gap-4">
+        <div className="mt-3 lg:mt-4 flex justify-center items-center gap-4">
           <CTAButton />
           <span>
             <ImportGithubDialog />
           </span>
+        </div>
+
+        {/* producthunt badge */}
+        <div className="mt-6 flex justify-center items-center">
+          <a href="https://www.producthunt.com/products/readmebit?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-readmebit" target="_blank" rel="noopener noreferrer"><img alt="ReadmeBit - Create your github readme the easy way | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1215030&amp;theme=light&amp;t=1785930189752"/></a>
         </div>
       </div>
 
